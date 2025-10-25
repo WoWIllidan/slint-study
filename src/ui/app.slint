@@ -1,0 +1,30 @@
+import { SInput } from "../slint-widgets/mod.slint";
+
+export component App inherits Window {
+    min-width: 600px;
+    min-height: 600px;
+
+    VerticalLayout {
+        spacing: 20px;
+        
+        SInput {
+            place-holder-text: "Enter your name";
+            edited => {
+                debug("Name edited");
+            }
+            accepted => {
+                debug("Name accepted");
+            }
+            leaved => {
+                debug("Name focus leave");
+            }
+        }
+
+        SInput {
+            place-holder-text: "Enter your email";
+            edited => {
+                debug("Edit email");
+            }
+        }
+    }
+}
