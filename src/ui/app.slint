@@ -1,4 +1,4 @@
-import { SInput } from "../slint-widgets/mod.slint";
+import { SInput, SRadio } from "../slint-widgets/mod.slint";
 
 export component App inherits Window {
     min-width: 600px;
@@ -24,6 +24,21 @@ export component App inherits Window {
             place-holder-text: "Enter your email";
             edited => {
                 debug("Edit email");
+            }
+        }
+
+        SRadio {
+            checked: true;
+            text: "Option 1";
+            clicked(value) => {
+                debug("Clicked radio with text: " + value);
+            }
+        }
+
+        SRadio {
+            text: "Option 2";
+            clicked(value) => {
+                debug("Clicked radio with text: " + value);
             }
         }
     }

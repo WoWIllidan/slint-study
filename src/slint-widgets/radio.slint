@@ -1,0 +1,46 @@
+export component Radio {
+    in property <length> btn-width: 16px;
+    in property <length> btn-height: 16px;
+
+    in-out property <bool> checked;
+    in property <string> text;
+
+    callback clicked(value: string);
+
+    ta := TouchArea {
+        mouse-cursor: pointer;
+        clicked => {
+            root.checked = !root.checked;
+            root.clicked(root.text);
+        }
+
+        states [
+            mouseover when ta.has-hover && !root.checked : {
+                btn.border-color : Colors.blue;
+            }
+
+            checked when root.checked : {
+                btn.border-width : btn.width / 3;
+                btn.border-color : Colors.blue;
+                text.color : Colors.blue;
+            }
+        ]
+
+        HorizontalLayout {
+            spacing: 5px;
+            
+            btn := Rectangle {
+                width: btn-width;
+                height: btn-height;
+                background: #ffffff;
+                border-radius: self.width / 2;
+                border-color: gray;
+                border-width: 1px;
+            }
+
+            text := Text {
+                text: root.text;
+            }
+        }
+    }   
+}
