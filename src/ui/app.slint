@@ -1,4 +1,4 @@
-import { SInput, SRadio } from "../slint-widgets/mod.slint";
+import { SInput, SRadio, SAvatar } from "../slint-widgets/mod.slint";
 
 export component App inherits Window {
     min-width: 600px;
@@ -39,6 +39,21 @@ export component App inherits Window {
             text: "Option 2";
             clicked(value) => {
                 debug("Clicked radio with text: " + value);
+            }
+        }
+
+        SAvatar {
+            is-circle: true;
+            source: @image-url("../assets/account.svg");
+        }
+
+        SAvatar {
+            is-circle: false;
+            source: @image-url("../assets/account.svg");
+            color: Colors.purple;
+
+            clicked => {
+                debug("Avatar clicked");
             }
         }
     }
