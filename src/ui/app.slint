@@ -1,4 +1,4 @@
-import { SInput, SRadio, SAvatar } from "../slint-widgets/mod.slint";
+import { SInput, SRadio, SAvatar, SSlider } from "../slint-widgets/mod.slint";
 
 export component App inherits Window {
     min-width: 600px;
@@ -54,6 +54,21 @@ export component App inherits Window {
 
             clicked => {
                 debug("Avatar clicked");
+            }
+        }
+
+        VerticalLayout {
+            spacing: 20px;
+            SSlider {
+                value: 100;
+                min: 50;
+                max: 200;
+                moved(value) => {
+                    debug("Slider moved to value: " + value);
+                }
+                clicked(value) => {
+                    debug("Slider clicked to value: " + value);
+                }
             }
         }
     }

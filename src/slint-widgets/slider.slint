@@ -1,0 +1,72 @@
+export component Slider inherits Rectangle {
+    in-out property <int> value;
+    in-out property <int> min: 0;
+    in-out property <int> max: 100;
+    callback moved(value: int);
+    callback clicked(value: int);
+
+    function get_value() -> int{
+       root.min + (root.max - root.min) * progress.width / track.width
+    }
+
+    width: 200px;
+    height: 10px; 
+
+    track := Rectangle { 
+        height: root.height / 2;
+        background: #eee;
+        border-radius: self.height / 2;
+
+        progress := Rectangle {
+            x: 0px;
+            width: root.width * (root.value - root.min) / (root.max - root.min);
+            background: Colors.blue;
+            border-radius: self.height / 2;
+        }
+
+        handle := Rectangle {
+            x: progress.width - self.width / 2;
+            height: root.height;
+            width: self.height;
+            background: Colors.white;
+            border-radius: self.height / 2;
+        }
+
+        TouchArea {
+            mouse-cursor: pointer;
+
+            moved => {
+                if self.mouse-x < 0px {
+                    progress.width = 0px;
+                } else if self.mouse-x > track.width {
+                    progress.width = track.width;
+                } else {
+                    progress.width = self.mouse-x;
+                }
+
+                root.moved(get_value());
+            }
+
+            clicked => {
+                if self.mouse-x < 0px {
+                    progress.width = 0px;
+                } else if self.mouse-x > track.width {
+                    progress.width = track.width;
+                } else {
+                    progress.width = self.mouse-x;
+                }
+                root.clicked(get_value());
+            }
+        }
+
+        states [
+           progress0 when progress.width == 0px : {
+                handle.x : 0px;
+           } 
+
+           progressFull when progress.width == root.width : {
+                handle.x : progress.width - handle.width;
+           }
+        ]
+    }
+}
