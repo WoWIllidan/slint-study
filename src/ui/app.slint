@@ -1,4 +1,4 @@
-import { SInput, SRadio, SAvatar, SSlider } from "../slint-widgets/mod.slint";
+import { SInput, SRadio, SAvatar, SSlider, SSwitch } from "../slint-widgets/mod.slint";
 
 export component App inherits Window {
     min-width: 600px;
@@ -69,6 +69,12 @@ export component App inherits Window {
                 clicked(value) => {
                     debug("Slider clicked to value: " + value);
                 }
+            }
+        }
+
+        SSwitch {
+            clicked(is-open) => {
+                debug("Switch is now: " + (is-open ? "ON" : "OFF"));
             }
         }
     }

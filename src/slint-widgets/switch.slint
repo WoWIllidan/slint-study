@@ -1,0 +1,42 @@
+export component Switch inherits Rectangle {
+    property <bool> has-clicked: false;
+    callback clicked(is-open: bool);
+
+   width: 80px;
+   height: 30px;
+   background: Colors.blue;
+   border-radius: self.width / 2;
+
+   VerticalLayout {
+    padding: 4px;
+
+    track := Rectangle {
+        btn := Rectangle {
+            x: track.width - self.width;
+            width: self.height;
+            border-radius: self.width / 2;
+            background: #fff;
+
+            animate x {
+                duration: 200ms; 
+            }
+        }
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => {
+            root.has-clicked = !root.has-clicked;
+            if root.has-clicked {
+                btn.x = 0;
+                root.background = Colors.gray;
+            } else {
+                btn.x = track.width - btn.width;
+                root.background = Colors.blue;
+            }
+
+            root.clicked(root.has-clicked);
+        }
+    }
+   }
+}
