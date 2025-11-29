@@ -1,4 +1,4 @@
-import { SInput, SRadio, SAvatar, SSlider, SSwitch } from "../slint-widgets/mod.slint";
+import { SInput, SRadio, SAvatar, SSlider, SSwitch, SButton } from "../slint-widgets/mod.slint";
 
 export component App inherits Window {
     min-width: 600px;
@@ -75,6 +75,29 @@ export component App inherits Window {
         SSwitch {
             clicked(is-open) => {
                 debug("Switch is now: " + (is-open ? "ON" : "OFF"));
+            }
+        }
+
+        SButton {
+            text: "我是Button";
+            background: Colors.purple;
+            clicked => {
+                debug("Button clicked");   
+            }
+            moved => {
+                debug("Button moved");
+            }
+        }
+
+        SButton {
+            text: "我是IconButton";
+            background: Colors.blue;
+            icon: @image-url("../assets/account.svg");
+            clicked => {
+                debug("Button clicked");   
+            }
+            moved => {
+                debug("Button moved");
             }
         }
     }

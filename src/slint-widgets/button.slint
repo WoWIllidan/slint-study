@@ -1,0 +1,61 @@
+export component Button inherits Rectangle {
+    in property <string> text;
+    in property <length> font-size: 14px;
+    in property <image> icon;
+    in property <length> btn-padding-left: 20px;
+    in property <length> btn-padding-right: 20px;
+    in property <length> btn-padding-top: 10px;
+    in property <length> btn-padding-bottom: 10px;
+    callback clicked();
+    callback moved();
+
+    border-radius: 10px;
+    background: Colors.blue;
+    width: layout.width + root.btn-padding-left + root.btn-padding-right;
+    height: layout.height + root.btn-padding-top + root.btn-padding-bottom;
+    opacity: 1.0;
+
+    layout := HorizontalLayout {
+        alignment: center;
+        spacing: root.icon.width > 0 ? 5px : 0px;
+        height: btn-text.height;
+        width: btn-text.width + (root.icon.width > 0  ? root.icon.width * 1px : 0px) + self.spacing;
+
+         if root.icon.width > 0 : Image {
+            width:  root.icon.width * 1px;
+            height: btn-text.height;
+            source: root.icon;
+         }
+
+         Rectangle {
+            btn-text := Text {
+                text: root.text;
+                color: Colors.white;
+                font-size: root.font-size;
+            }
+         }
+    }
+
+    ta := TouchArea {
+        mouse-cursor: pointer;
+        clicked => {
+            root.clicked();
+        }
+        moved => {
+            root.moved();
+        }
+    }
+
+    states [
+        mouseover when ta.has-hover : {
+            root.opacity: 0.5;
+
+            in {
+                animate opacity {
+                    duration: 50ms;
+                    easing: ease-in-out;
+                }
+            }
+        }
+    ]
+}
